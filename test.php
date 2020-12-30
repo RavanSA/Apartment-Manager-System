@@ -83,15 +83,15 @@
 <div class="navbar">
   <a class="active" href="main1.php"><i class="fa fa-fw fa-home"></i> Home</a> 
   <a href="#"><i class="fa fa-fw fa-search"></i>Search</a> 
-  <a href="#"><i class="fa fa-fw fa-envelope"></i>Contact</a> 
-  <a href="#"><i class="fa fa-fw fa-user"></i>Login</a>
+  <a href="contactus.php"><i class="fa fa-fw fa-envelope"></i>Contact</a> 
+  <a href="test.php"><i class="fa fa-fw fa-user"></i>Login</a>
 </div><br><br>
 <br><br>
     
 <div class="col-sm-12 col-sm-offset-12 text-center">
 <center>
-  <div  class="btn btn-primary btn-block" style="width: 400px; height: 45px;"><span class="pull-left"><i class="fas fa-sign-in-alt"></i></span>
-  <strong>LOGIN</strong></div><br>
+ <a href="#"> <div  class="btn btn-primary btn-block" style="width: 400px; height: 45px;"><span class="pull-left"><i class="fas fa-sign-in-alt"></i></span>
+  <strong>LOGIN User / Admin Entry</strong></div><br></a>
 <a href="user.php"><button type="button" class="btn btn-secondary" style="width: 400px; height: 45px; ">
 <span class="pull-left"><i class="fas fa-users"></i></span>
 <strong>User  Entry</strong></button> <br><br></a>
@@ -110,9 +110,10 @@
       <a href="#"><i class="fab fa-linkedin-in"></i></a>
       <a href="#"><i class="fab fa-youtube"></i></a> 
       <a href="#"><i class="fab fa-instagram"></i></a>
-   <h6>Copyright © 2020 Apartment Managers. All rights reserved.<a target="_blank" href="..."> Terms of Use</a> -
+   <h6>Copyright Â© 2020 Apartment Managers. All rights reserved.<a target="_blank" href="..."> Terms of Use</a> -
    <a target="_blank" href="...">Privacy Policy </a>- Powered by Ravan.</h6>
    </center>
 </footer>
 </body>
 </html>
+

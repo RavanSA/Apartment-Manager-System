@@ -1,4 +1,13 @@
-﻿<html>
+<?php
+session_start();
+?>
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    header('location:  error.php');
+    exit;
+}
+?>
+<html>
 <head>
 <title>Register User</title>
   <meta charset="utf-8">
@@ -12,67 +21,7 @@
 
 
 <style>
-#footer-sec {
-    background-color: #343a40;
-    padding: 20px 50px;
-    
-    font-size: 12px;
-}
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #343a40;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: white;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #343a40;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #343a40;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
  #did {border: solid black;width: 70%;border-radius: 4px;
 		margin: 70px auto ; background: white;
 		padding:70px;} 
@@ -81,7 +30,7 @@
     background-color: #F5F5F5;
     }
     input[type=text], select {
-  width: 85%;
+  width: 70%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -90,7 +39,7 @@
   box-sizing: border-box;
 }
     input[type=password], select {
-  width: 85%;
+  width: 70%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -143,64 +92,11 @@ input[type=submit]:hover {
 </style>
 </head>
 
-<body id="color45"> <div><center>
-
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-<div> 
-<div id="mySidebar" class="sidebar">
-<div style="color:white; padding-left:100px;">
-</div>
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="registeringasadmin.php" style="font-size: 15px"> <i class="fas fa-user-plus"></i> Register Users</a>
-  <hr>
-  <a href="useraddfare.php" style="font-size: 15px"><i class="fas fa-money-check-alt"></i> Create monthly due for the user</a>
-  <hr>
-  <a href="showinguserdata.php" style="font-size: 15px"><i class="fas fa-database"></i> User profile information</a>
-  <hr>
-  <a href="trackingowndue.php" style="font-size: 15px"><i class="fas fa-money-bill-wave"></i> Who not pay their due</a>
-  <hr>
-  <a href="addotherexpenseuser.php" style="font-size: 15px"><i class="fas fa-file-invoice-dollar"></i>Add other expenses to the user</a>
-  <hr>
-</div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰</button>  
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
-</div>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-     <li class="nav-item" style="color: #FFFFFF;"> <b>ADMIN PANEL 
-     
-    </b>
-     </li>
-    </ul>
-
-     <div style="padding-left:900px">
-    <a href="HTMLPage2.php.php" style="color: white;"> <i class="fas fa-home"> HOME</i></a>
-
-    </div>
-
-    <div style="padding-left:30px">
-   <a href="test.php" style="color: white;"> <i class="fas fa-sign-out-alt">LOGOUT</i></a>
-    </div>
-   
-
-  </div>  
-</nav>
-
+<body id="color45"> 
+<?php
+include "config/header.php";
+?>
+<center>
 <br><br>
  <h1><i class="far fa-building" style="font-size:40px"> 
  Apartment Manager</i></h1><br>
@@ -215,6 +111,7 @@ function closeNav() {
   </div>
 </div>
 </center>
+
 
  <?php
  
@@ -288,6 +185,7 @@ if(isset($_POST['username'])){
       $formValid = false;
     }
   }
+
    if (empty($phonenumber)) {
     $phonenumErr = "Phone Number is required";
   } else {
@@ -324,7 +222,7 @@ if(isset($_POST['username'])){
   } else {
     $blocktype = test_input($_POST["blocktype"]);
    
-    if (substr_compare($blocktype,$blccheck1,0) != 0 ) {
+    if (substr_compare($blocktype,$blccheck1,0) != 0) {
       $blcktypeErr = "Please write A (Only block A available)";
       $formValid = false;
     }
@@ -342,8 +240,9 @@ if(isset($_POST['username'])){
     }
   }
  
+  $hashpasswd=md5($password);
 
-$sql = "INSERT INTO user ( username, password, email, gender, phonenumber, blocktype, apartmentnumber, pic, dstart) VALUES ('$name', '$password', '$email', '$gender', '$phonenumber',
+$sql = "INSERT INTO user ( username, password, email, gender, phonenumber, blocktype, apartmentnumber, pic, dstart) VALUES ('$name', '$hashpasswd', '$email', '$gender', '$phonenumber',
 '$blocktype','$apartmentnumber','profile.jpg', '$startdate' )";
          if($formValid){
 
@@ -377,7 +276,7 @@ function test_input($data) {
   <br>
    	&nbsp;	&nbsp;<input type="password" name="password" placeholder="Password(e.g User1234)" value="<?php if ( isset($password) ) echo $password; ?>" required > 
   <span class="error">*  <?php echo  $passwordErr;?></span> 
-<br> 
+<br> <br>
 	&nbsp;	&nbsp;<input type="text" name="email" placeholder="E-mail (e.g example@gmail.com)" value="<?php if ( isset($email) ) echo $email; ?>" required> 
   <span class="error">* <br> <?php echo  $emailErr;?></span> 
   <br>
@@ -385,35 +284,38 @@ function test_input($data) {
      <span class="error"> * <br> <?php echo $phonenumErr;?></span> 
 
 
-
+     <br>
  &nbsp;	&nbsp; <input type="text" name="blocktype" placeholder="Block Type (e.g A)" value="<?php if ( isset($blocktype) ) echo $blocktype; ?>" required>
      <span class="error"> * <br> <?php echo  $blcktypeErr;?></span> 
 
-
+     <br>
   	&nbsp;	&nbsp;<input type="text" name="apartmentnumber" placeholder="Apartment Number" value="<?php if ( isset($apartmentnumber) ) echo $apartmentnumber; ?>" required>
        <span class="error"> * <br> <?php echo  $aptnumbErr;?></span> 
-     <br>	<center>
+     <br>	<br>
   	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
   	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">Male
   	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="other") echo "checked";?> value="other">Other   
   	&nbsp;	&nbsp;<span class="error">* <?php echo  $genderErr;?></span>
   <br>
    
-        <label for="movedin">Moved in</label>
+       &nbsp;	&nbsp;   <label for="movedin">Moved in</label>
 
-        <input type="date" name="movedin">
+         &nbsp;	&nbsp; <input type="date" name="movedin" required><br>
   
     
    
-  <input type="submit" name="submit" value="Submit"><br>
-	 <a href="HTMLPage2.php.php"> <input id="button" type="button" value="Go to Admin Dashboard" ></a></center>
+  &nbsp;	&nbsp;<input type="submit" name="submit" value="Submit"><br>
+&nbsp;	<a href="HTMLPage2.php.php"> <input id="button" type="button" value="Go to Admin Dashboard" ></a>
 </form>
 
 
 </div>
 </div>
-<div id="footer-sec">
-       <span style="color: white;">Apartment Manager System</span>
-    </div>
+</center>
+<div style="margin-top:-50px;">
+<?php
+include "config/footer.php"
+?>
+</div>
 </body>
 </html>

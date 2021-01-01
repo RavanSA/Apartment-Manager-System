@@ -1,7 +1,12 @@
-﻿<?php
+<?php
  session_start();
 ?>
-
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    header('location:  error.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,12 +18,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-#footer-sec {
-    background-color: #343a40;
-    padding: 20px 50px;
-    
-    font-size: 12px;
-}
+
 input[type=password], select {
   width: 100%;
   padding: 12px 20px;
@@ -53,130 +53,13 @@ input[type=submit]:hover {
   height: 40%;
   margin: 30px;
 }
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #343a40;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: white;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #343a40;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #343a40;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
-
-</style>
 </style>
 </head>
 <body style="background-color:#F5F5F5">
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-<div> 
-<div id="mySidebar" class="sidebar">
-<center style="color:white;">
-<h5>Apartment Manager</h5>
-<h5>System</h5></center>
-<center style="color:white;"><?php echo "Hi,"."  $_SESSION[login_user]"; ?></center><br>
-
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <hr style="background-color: #F5F5F5;">
-  <a href="paymenthistory.php" style="font-size: 15px"><i class="fas fa-history"></i>   Payment History</a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="usercheckowndue.php" style="font-size: 15px"><i class="fas fa-money-bill-wave"></i> Check how much you debt </a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="transaction.php" style="font-size: 15px"><i class="fas fa-money-check-alt"></i>    ONLINE TRANSACTION</a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="payothertransaction.php" style="font-size: 15px"> <i class="fas fa-money-bill-alt"></i>      Pay additional fares </a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="userseeexpense.php" style="font-size: 15px"><i class="fas fa-comments-dollar"></i>      How much spent on what </a>
-  <hr style="background-color: #F5F5F5;"> 
-  <a href="settingsuser.php" style="font-size: 15px"><i class="fas fa-comments-dollar"></i>      Settings </a>
-  <hr style="background-color: #F5F5F5;">
-
-</div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰</button>  
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
-</div>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-     <li class="nav-item" style="color: #FFFFFF;"> <b>User Page</b>
-     </li>
-    </ul>
-
-     <div style="padding-left:800px">
-    <a href="#" style="color: white;"> <i class="fas fa-home"> HOME</i></a>
-
-    </div>
-
-    <div style="padding-left:50px">
-    <?php
-    echo " <img  height=30 width=30 src='images/".$_SESSION['pic']."'>";
-    ?>
-   <a href="logout.php" style="color: white;"> <i class="fas fa-sign-out-alt">
-   LOGOUT</i></a>
-    </div>
-   
-
-  </div>  
-</nav>
+<?php
+include "config/userheader.php";
+?>
 
 <center>
 <br><br>
@@ -281,18 +164,18 @@ $r = $dbconnection->query($sql);
 }else{
             echo "<div class='container' style='width: 42%;'>
   <div class='alert alert-danger'>
-    <strong>Error Occured!</strong> User information has not been added to the database. Please obey the rules.
+    <strong>Error Occured!</strong>
   </div>
 </div>";
 }
 }
 ?>
 
+</center>
 
-
- <div id="footer-sec">
-       <span style="color: white;">Apartment Manager System</span>
-    </div>
+<?php
+include "config/userfooter.php";
+?>
 
 </body>
 </html>

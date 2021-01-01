@@ -1,5 +1,11 @@
-﻿<?php
+<?php
  session_start();
+?>
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    header('location:  error.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -14,71 +20,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
-   #did {border: solid;width: 5000px;border-radius: 7px;
-		margin: 50px auto ; background: white; height: 1000px ;
-		padding:70px;} 
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #343a40;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
 
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
 
-.sidebar a:hover {
-  color: white;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #343a40;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #343a40;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-#footer-sec {
-    background-color: #343a40;
-    padding: 20px 50px;
-    
-    font-size: 12px;
-}
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
 .mb-pink {
     background-color: #005a8c;
 }
@@ -133,84 +77,32 @@
 }
 .vl {
   border-left: 2px solid #00CA79;
-  height: 570px;
+  height: 572px;
   position: absolute;
   left: 16%;
   margin-left: -3px;
-  top: 100px;
+  top: 75px;
 }
 .v2 {
   border-left: 2px solid #00CA79;
-  height: 570px;
+  height: 572px;
   position: absolute;
   left: 93%;
   margin-left: -3px;
-  top: 100px;
+  top: 75px;
+
 }
   </style>
 </head>
 <html>
 <body style="background-color: #F5F5F5;">
-<!-- navbar -->
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-<div> 
-<div id="mySidebar" class="sidebar">
-<div style="color:white; padding-left:100px;">
-<?php echo "Hi,"."  $_SESSION[login_user]"; ?>
-
-</div>
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="registeringasadmin.php" style="font-size: 15px"> <i class="fas fa-user-plus"></i> Register Users</a>
-  <hr>
-  <a href="useraddfare.php" style="font-size: 15px"><i class="fas fa-money-check-alt"></i> Create monthly due for the user</a>
-  <hr>
-  <a href="showinguserdata.php" style="font-size: 15px"><i class="fas fa-database"></i> User profile information</a>
-  <hr>
-  <a href="trackingowndue.php" style="font-size: 15px"><i class="fas fa-money-bill-wave"></i> Who not pay their due</a>
-  <hr>
-  <a href="addotherexpenseuser.php" style="font-size: 15px"><i class="fas fa-file-invoice-dollar"></i>Add other expenses to the user</a>
-  <hr>
-</div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰</button>  
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-
-</script>
-
-
-
-</div>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-     <li class="nav-item" style="color: #FFFFFF;"> <b>ADMIN PANEL 
-    </b>
-     </li>
-    </ul>
-     <div style="padding-left:900px">
-    <a href="HTMLPage2.php.php" style="color: white;"> <i class="fas fa-home"> HOME</i></a>
-    </div>
-    <div style="padding-left:30px">
-   <a href="test.php" style="color: white;"> <i class="fas fa-sign-out-alt">LOGOUT</i></a>
-    </div>
-  </div>  
-</nav>
-
-
+<?php
+include "config/header.php";
+?>
 <!-- shortcuts-->
-<div class="vl"></div>
+<div class="vl">
+
+</div>
 <div class="v2"></div>
 
 <div class="row">
@@ -312,9 +204,10 @@ function closeNav() {
 
                     </div>
                 </div>
-
-                <div id="footer-sec">
-       <span style="color: white;">Apartment Manager System</span>
-    </div>
+<div style="margin-top: -23px;">
+<?php
+include "config/footer.php";
+?>
+</div>
 </body>
 </html>

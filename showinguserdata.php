@@ -1,8 +1,13 @@
-﻿
+
 <?php
  session_start();
 ?>
-
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    header('location:  error.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,128 +30,14 @@
         table tr td:last-child a{
             margin-right: 15px;
         }
-        .sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #343a40;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-#footer-sec {
-    background-color: #343a40;
-    padding: 20px 50px;
-    
-    font-size: 12px;
-}
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: white;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #343a40;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #343a40;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
-
-
-
+       
     </style>
 </head>
 <body style="background-color: #F5F5F5;">
 
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-<div> 
-<div id="mySidebar" class="sidebar">
-<div style="color:white; padding-left:100px;">
-
-
-</div>
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="registeringasadmin.php" style="font-size: 15px"> <i class="fas fa-user-plus"></i> Register Users</a>
-  <hr>
-  <a href="useraddfare.php" style="font-size: 15px"><i class="fas fa-money-check-alt"></i> Create monthly due for the user</a>
-  <hr>
-  <a href="showinguserdata.php" style="font-size: 15px"><i class="fas fa-database"></i> User profile information</a>
-  <hr>
-  <a href="trackingowndue.php" style="font-size: 15px"><i class="fas fa-money-bill-wave"></i> Who not pay their due</a>
-  <hr>
-  <a href="addotherexpenseuser.php" style="font-size: 15px"><i class="fas fa-file-invoice-dollar"></i>Add other expenses to the user</a>
-  <hr>
-</div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰</button>  
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-
-</script>
-
-
-
-</div>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-     <li class="nav-item" style="color: #FFFFFF;"> <b>ADMIN PANEL 
-    </b>
-     </li>
-    </ul>
-     <div style="padding-left:900px">
-    <a href="HTMLPage2.php.php" style="color: white;"> <i class="fas fa-home"> HOME</i></a>
-    </div>
-    <div style="padding-left:30px">
-   <a href="test.php" style="color: white;"> <i class="fas fa-sign-out-alt">LOGOUT</i></a>
-    </div>
-  </div>  
-</nav>
+<?php
+include "config/header.php";
+?>
 <br> <br>
  <center><h1><i class="far fa-building" style="font-size:40px"> 
  Apartment Manager</i></h1><br> 
@@ -157,6 +48,8 @@ function closeNav() {
   <div class="alert alert-info alert-dismissible" style="width: 93%;">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Read before taking any action!</strong> This section is used for track user information.
+    If the "Moved Date" column shows "0000-00-00", it means the resident <strong> not moved </strong>.
+    Otherwise, the resident moved out of the apartment.
   </div>
 </div>
 </center>
@@ -190,7 +83,9 @@ function closeNav() {
                                         echo "<th>Apartment Number</th>";
                                         echo "<th>Moved in</th>";
                                         echo "<th>If moved</th>";
+                                        echo "<th>Moved Date</th>";
                                         echo "<th>Update, Delete</th>";
+                                       
 
                                     echo "</tr>";
                                 echo "</thead>";
@@ -203,11 +98,15 @@ function closeNav() {
                                         echo "<td>" . $row['blocktype'] . "</td>";
                                         echo "<td>" . $row['apartmentnumber'] . "</td>";
                                         echo "<td>" . $row['dstart'] . "</td>";
+
                                         echo "<td>" . $row['ifmoved'] . "</td>";
+                                        echo "<td>" . $row['moveddate'] . "</td>";
+
                                        echo "<td>";
                                          echo "<a href='updateuserdata.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pencil-alt fas-2x'></span></a>";
                                             echo "<a href='deleteuserdata.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-user-times fas-2x'></span></a>";
                                         echo "</td>";
+                                        
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
@@ -226,9 +125,8 @@ function closeNav() {
         </div>
     </div>
 </center>
-     <div id="footer-sec">
-       <span style="color: white;">Apartment Manager System</span>
-    </div>
-    
+<?php
+include "config/footer.php";
+?>
 </body>
 </html>

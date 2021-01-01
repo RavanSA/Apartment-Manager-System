@@ -1,7 +1,16 @@
-﻿<?php
+<?php
  session_start();
 ?>
 
+<?php
+     $host = "localhost";
+     $user = "root";
+     $pass = "";
+     $db = "mydb";
+     $dbconnection = new mysqli($host, $user, $pass,$db);
+     $sql5="SELECT * FROM announcement";
+
+?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,11 +26,11 @@
   <style>
   .vl {
   border-left: 2px solid #00CA79;
-  height: 513px;
+  height: 560px;
   position: absolute;
   left: 16%;
   margin-left: -3px;
-  top: 100px;
+  top: 76px;
 }
 .row {
     margin-right: -15px;
@@ -29,11 +38,11 @@
 }
 .v2 {
   border-left: 2px solid #00CA79;
-  height: 513px;
+  height: 560px;
   position: absolute;
   left: 93%;
   margin-left: -3px;
-  top: 100px;
+  top: 76px;
 }
   .mb-pink {
     background-color: #005a8c;
@@ -63,39 +72,6 @@
     -webkit-border-radius: 5px;
     margin-bottom: 30px;
 }
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #343a40;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: white;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
 .info {
     font-size: 13px;
     text-transform: uppercase;
@@ -117,107 +93,51 @@
     text-transform: uppercase;
     color: #000;
     font-weight: 800;
+
+}
+.fixing{
+padding-bottom:5px;
 }
 
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #343a40;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #343a40;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
   </style>
 </head>
 <html>
-<body >
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-<div> 
-<div id="mySidebar" class="sidebar">
-<center style="color:white;">
-<h5>Apartment Manager</h5>
-<h5>System</h5></center>
-<center style="color:white;"><?php echo "Hi,"."  $_SESSION[login_user]"; ?></center><br>
-
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <hr style="background-color: #F5F5F5;">
-  <a href="paymenthistory.php" style="font-size: 15px"><i class="fas fa-history"></i>   Payment History</a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="usercheckowndue.php" style="font-size: 15px"><i class="fas fa-money-bill-wave"></i> Check how much you debt </a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="transaction.php" style="font-size: 15px"><i class="fas fa-money-check-alt"></i>    ONLINE TRANSACTION</a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="payothertransaction.php" style="font-size: 15px"> <i class="fas fa-money-bill-alt"></i>      Pay additional fares </a>
-  <hr style="background-color: #F5F5F5;">
-  <a href="userseeexpense.php" style="font-size: 15px"><i class="fas fa-comments-dollar"></i>      How much spent on what </a>
-  <hr style="background-color: #F5F5F5;">
-
-</div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰</button>  
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
-</div>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-     <li class="nav-item" style="color: #FFFFFF;"> <b>User Page</b>
-     </li>
-    </ul>
-
-     <div style="padding-left:800px">
-    <a href="#" style="color: white;"> <i class="fas fa-home"> HOME</i></a>
-
-    </div>
-
-    <div style="padding-left:50px">
-    <?php
-    echo " <img  height=30 width=30 src='images/".$_SESSION['pic']."'>";
-    ?>
-   <a href="logout.php" style="color: white;"> <i class="fas fa-sign-out-alt">
-   LOGOUT</i></a>
-    </div>
-   
-
-  </div>  
-</nav>
-
+<body class="fixing">
 
 <?php
-    
- 
-     
-    
-     $host = "localhost";
-     $user = "root";
-     $pass = "";
-     $db = "mydb";
-     $dbconnection = new mysqli($host, $user, $pass,$db);
+include "config/userheader.php";
+?>
+
+ <?php 
+
+if($results = mysqli_query($dbconnection, $sql5)){
+if(mysqli_num_rows($results) > 0){
+
+while($row = mysqli_fetch_array($results)){
+if (!is_null($row["message"])){
+  echo "<script>
+	$(document).ready(function(){
+		$('#myModal').modal('show');
+	});
+</script>
+<div id='myModal' class='modal fade'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Announcement</h5>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body'>
+            " .  $row['message']. " <br>
+            </div>
+        </div>
+    </div>
+</div>";
+}
+}
+}
+}
+
 ?>
 
 <div class="vl"></div>
@@ -265,12 +185,7 @@ function closeNav() {
 </div>
 </div>
 <?php
-    
-     $host = "localhost";
-     $user = "root";
-     $pass = "";
-     $db = "mydb";
-     $dbconnection = new mysqli($host, $user, $pass,$db);
+
      $q = mysqli_query($dbconnection," SELECT * FROM user WHERE username = '$_SESSION[login_user]';");
      $row = mysqli_fetch_assoc($q);
 ?>
@@ -287,12 +202,12 @@ function closeNav() {
                     </div>
                 </div>
 
-
-
-                <div id="footer-sec">
-       <span style="color: white;">Apartment Manager System</span>
-    </div>   
      
 </center>
+<div style="margin-top: 21px;">
+<?php
+include "config/userfooter.php";
+?>
+</div>
 </body>
 </html>

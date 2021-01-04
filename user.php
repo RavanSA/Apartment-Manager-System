@@ -5,10 +5,10 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+form {border: 3px solid #f1f1f1;}	
 
 input[type=text], input[type=password] {
   width: 100%;
@@ -57,6 +57,46 @@ img.avatar {
 </style>
 </head>
 <body style="background-color: #f5f5f5;">
+
+<?php
+
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "mydb";
+$dbconnection = new mysqli($host, $user, $pass,$db);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$username = $_POST["username"];
+	$password = $_POST["password"];
+
+	 
+if(isset($_POST["username"])){
+    $hashpasswd = md5($password);
+
+	$sql = "SELECT username, password FROM user WHERE username = '$username' AND  password = '$hashpasswd'";
+	$result = mysqli_query($dbconnection,$sql);
+	$sql2 = mysqli_query($dbconnection, "SELECT * FROM user WHERE username = '$username' AND  password = '$hashpasswd'");
+
+	$row = mysqli_fetch_assoc($sql2);
+
+	if(mysqli_num_rows($result) > 0){
+	$_SESSION['login_user'] = $username;
+	$_SESSION['pic'] = $row['pic'];
+		header("Location: user/userpage.php");
+	} else {
+		     echo '<script language="javascript">';
+     echo 'alert("Your username or password is incorrect. Please try again.")';
+     echo '</script>';;
+	}
+}
+}
+
+
+?>
+
+
+
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 <div id="did">
 <div class="col-sm-12 col-sm-offset-12 text-center">
@@ -82,38 +122,5 @@ img.avatar {
 </div>
 </div>
 </div>
-<?php
-
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "mydb";
-$dbconnection = new mysqli($host, $user, $pass,$db);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$username = $_POST["username"];
-	$password = $_POST["password"];
-
-	 
-if(isset($_POST["username"])){
-
-	$sql = "SELECT username, password FROM user WHERE username = '$username' AND  password = '$password'";
-	$result = mysqli_query($dbconnection,$sql);
-	$sql2 = mysqli_query($dbconnection, "SELECT * FROM user WHERE username = '$username' AND  password = '$password'");
-
-	$row = mysqli_fetch_assoc($sql2);
-
-	if(mysqli_num_rows($result) > 0){
-	$_SESSION['login_user'] = $username;
-	$_SESSION['pic'] = $row['pic'];
-		header("Location: userpage.php");
-	} else {
-		echo "<h1>Your username or password incorrect</h1>";
-	}
-}
-}
-
-
-?>
 </body>
 </html>

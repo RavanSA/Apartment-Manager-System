@@ -91,13 +91,13 @@
 <div class="col-sm-12 col-sm-offset-12 text-center">
 <center>
  <a href="#"> <div  class="btn btn-primary btn-block" style="width: 400px; height: 45px;"><span class="pull-left"><i class="fas fa-sign-in-alt"></i></span>
-  <strong>LOGIN User / Admin Entry</strong></div><br></a>
+  <strong>LOGIN User / Admin</strong></div><br></a>
 <a href="user.php"><button type="button" class="btn btn-secondary" style="width: 400px; height: 45px; ">
 <span class="pull-left"><i class="fas fa-users"></i></span>
-<strong>User  Entry</strong></button> <br><br></a>
+<strong>User LOGIN</strong></button> <br><br></a>
  <a href="index.php"> <button type="button" class="btn btn-secondary" style="width: 400px; height: 45px;"><span class="pull-left">
 <i class="fas fa-users-cog"></i>
-</span><strong>Admin Entry</strong></button> <br><br> </a>
+</span><strong>Admin LOGIN</strong></button> <br><br> </a>
 </center>
 </div>
 <br> <br>
@@ -116,4 +116,3 @@
 </footer>
 </body>
 </html>
-

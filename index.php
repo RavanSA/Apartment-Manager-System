@@ -98,14 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	 
 if(isset($_POST["username"])){
 
-	$sql = "SELECT * FROM admin WHERE username = '$username' AND  password = PASSWORD('$password')";
+	$sql = "SELECT * FROM admin WHERE username = '$username' AND  password = MD5('$password')";
 	$result = mysqli_query($dbconnection,$sql);
 
 	if(mysqli_num_rows($result) > 0){
 	$_SESSION['login_user'] = $username;
-		header("Location: HTMLPage2.php.php");
+		header("Location: admin/HTMLPage2.php.php");
 	} else {
-		echo "<h1>Your username or password incorrect</h1>";
+				     echo '<script language="javascript">';
+     echo 'alert("Your username or password is incorrect. Please try again.")';
+     echo '</script>';;
 	}
 }
 }

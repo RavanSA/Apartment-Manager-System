@@ -92,8 +92,8 @@
 <!--navbar-->
 <div class="navbar">
   <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
-  <a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
-  <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
+  <a href="www.google.com"><i class="fa fa-fw fa-search"></i> Search</a> 
+  <a href="contactus.php"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
   <a href="test.php"><i class="fa fa-fw fa-user"></i> Login</a>
 </div>
 
@@ -153,8 +153,8 @@
         alt="1 romm apt" style="width:100%">
       <div class="card-body">
       <h5 class="card-title">One Bedroom Apartments</h5>
-     <p class="card-text">1 <i class="fas fa-bed"></i> · 2 <i class="fas fa-user"></i></p>
-      <a href="#" class="btn btn-primary">See details</a>
+     <p class="card-text">1 <i class="fas fa-bed"></i> Â· 2 <i class="fas fa-user"></i></p>
+      <a href="contactus.php" class="btn btn-primary">See details</a>
        </div>
      </div>
    </div>
@@ -164,8 +164,8 @@
        alt="2 room apt" style="width:100%">
          <div class="card-body">
            <h5 class="card-title">Two Bedroom Apartments</h5>
-             <p class="card-text"> 2 <i class="fas fa-bed"></i> · 4 <i class="fas fa-user"></i></p>
-         <a href="#" class="btn btn-primary">See details</a>
+             <p class="card-text"> 2 <i class="fas fa-bed"></i> Â· 4 <i class="fas fa-user"></i></p>
+         <a href="contactus.php" class="btn btn-primary">See details</a>
           </div>
       </div>
      </div>
@@ -175,8 +175,8 @@
       alt="3 room apt" style="width:100%">
        <div class="card-body">
        <h5 class="card-title">3 Bedroom Apartments</h5>
-        <p class="card-text">3 <i class="fas fa-bed"></i> · 6 <i class="fas fa-user"></i></p>
-      <a href="#" class="btn btn-primary">See details</a>
+        <p class="card-text">3 <i class="fas fa-bed"></i> Â· 6 <i class="fas fa-user"></i></p>
+      <a href="contactus.php" class="btn btn-primary">See details</a>
       </div>
      </div>
     </div>
@@ -192,8 +192,8 @@
     <article>
     <center>
     <h1> About Deluxe Apartments </h1>
-    <p> If you’re looking for rentals, click the “Search” button and inquire about your favorite listings. 
-    Browse vacation deals, family-friendly amenities, and more. If you can’t find what you’re looking for,
+    <p> If youâ€™re looking for rentals, click the â€œSearchâ€ button and inquire about your favorite listings. 
+    Browse vacation deals, family-friendly amenities, and more. If you canâ€™t find what youâ€™re looking for,
     remember that vacation rentals are added and updated every week, 
     so please bookmark us and come back for a visit!</p>
     </center>
@@ -203,14 +203,15 @@
     <footer>
 <div class="jumbotron text-center"  style="background-color:#F5F5F5"
     style="margin-bottom:0">
-      <a href="#"><i class="fab fa-facebook-f"></i></a> 
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a> 
-      <a href="#"><i class="fab fa-instagram"></i></a>
-   <h6>Copyright © 2020 Apartment Managers. All rights reserved.<a target="_blank" href="..."> Terms of Use</a> -
+      <a href="www.fb.com"><i class="fab fa-facebook-f"></i></a> 
+      <a href="www.linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+      <a href="www.youtube.com"><i class="fab fa-youtube"></i></a> 
+      <a href="www.instagram.com"><i class="fab fa-instagram"></i></a>
+   <h6>Copyright Â© 2020 Apartment Managers. All rights reserved.<a target="_blank" href="..."> Terms of Use</a> -
    <a target="_blank" href="...">Privacy Policy </a>- Powered by Ravan.</h6>
    </div>
 </footer>
 
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  session_start();
 ?>
 <?php 
@@ -127,10 +127,11 @@ $sql3 = "INSERT INTO otherexpenseshistory ( username, paidfee, submitdate) VALUE
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Read before taking any action!</strong> This section is used for paying additional dues, <strong> NOT FOR THE MONTHLY DUE</strong>
     and your debt is <?php
+     error_reporting(0);
          $sql4 =mysqli_query( $dbconnection, "select *  from otherexpenses where username =  '$_SESSION[login_user]' and DATE(submitdate) = CURDATE() ");
        $roww = mysqli_fetch_assoc($sql4);
       $totalfeee = $roww["totaldebt"];
-    
+   
     echo $totalfeee; 
     ?>
   </div>

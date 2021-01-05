@@ -37,3 +37,10 @@ First make sure you start Apache and Mysql, then follow the steps below.
 5.	And, import “mydb.sql”(located in database folder)
 6.	Then, go to http://localhost/Apartment-Manager-System-main/main1.php
 
+Admin
+username: admin
+password: admin
+
+Resident
+username: user bir
+password: UsEr1111

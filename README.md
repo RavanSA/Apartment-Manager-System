@@ -1,5 +1,5 @@
 # Apartment-Manager-System
-CSE305
+CSE305 Ravan SADIGLI 20160807005
 REPORT – CSE305 
 There are two users in the system: admin and residents. These have different abilities.
 
@@ -36,4 +36,10 @@ First make sure you start Apache and Mysql, then follow the steps below.
 4.	Create database name as “mydb”
 5.	And, import “mydb.sql”(located in database folder)
 6.	Then, go to http://localhost/Apartment-Manager-System-main/
+
+
+Use Case Diagram
+
+
+
 

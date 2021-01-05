@@ -35,5 +35,5 @@ First make sure you start Apache and Mysql, then follow the steps below.
 3.	Then, go to  http://localhost/phpmyadmin/
 4.	Create database name as “mydb”
 5.	And, import “mydb.sql”(located in database folder)
-6.	Then, go to http://localhost/Apartment-Manager-System-main/
+6.	Then, go to http://localhost/Apartment-Manager-System-main/main1.php
 

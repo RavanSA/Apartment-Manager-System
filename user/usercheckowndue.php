@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  session_start();
 ?>
 <?php 
@@ -56,10 +56,9 @@ include "../config/userheader.php";
   <button type="button" class="btn btn-info btn-lg" id="myBtn" style="width: 50%;">January</button>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for January</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for January</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -73,7 +72,7 @@ include "../config/userheader.php";
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$totaldebtt' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = $dbconnection->query($sql1);
            $row = mysqli_fetch_array($result);
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"60%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -120,10 +119,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn1" style="width: 50%;" >February</button>
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for February</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for February</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -133,7 +131,7 @@ $(document).ready(function(){
                      $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >=  '$february' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -181,10 +179,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn3" style="width: 50%;">March</button>
   <div class="modal fade" id="myModal3" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for March</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for March</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -194,7 +191,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$march' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -242,10 +239,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn4" style="width: 50%;">April</button>
   <div class="modal fade" id="myModal4" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for April</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for April</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -255,7 +251,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$april'  and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -303,10 +299,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn5" style="width: 50%;">May</button>
   <div class="modal fade" id="myModal5" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for May</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for May</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -316,7 +311,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$may' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -365,10 +360,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn6" style="width: 50%;">June</button>
   <div class="modal fade" id="myModal6" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for June</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for June</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -378,7 +372,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$june' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -427,10 +421,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn7" style="width: 50%;">Jule</button>
   <div class="modal fade" id="myModal7" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for Jule</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for Jule</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -440,7 +433,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt  >= '$jule' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -489,10 +482,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn8" style="width: 50%;">August</button>
   <div class="modal fade" id="myModal8" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for August</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for August</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -502,7 +494,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$august' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -551,10 +543,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn9" style="width: 50%;">September</button>
   <div class="modal fade" id="myModal9" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for September</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for September</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -564,7 +555,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$september' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -613,10 +604,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn10" style="width: 50%;">November</button>
   <div class="modal fade" id="myModal10" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for November</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for November</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -626,7 +616,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$november' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -675,10 +665,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn11" style="width: 50%;">October</button>
   <div class="modal fade" id="myModal11" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for October</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for October</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -688,7 +677,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$october' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";
@@ -737,10 +726,9 @@ $(document).ready(function(){
   <button type="button" class="btn btn-info btn-lg" id="myBtn12" style="width: 50%;">December</button>
   <div class="modal fade" id="myModal12" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Check that you have debt for December</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for December</h4>
         </div>
         <div class="modal-body">
           <p>
@@ -750,7 +738,7 @@ $(document).ready(function(){
            $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$december' and YEAR(submitdate) = YEAR(CURDATE());";
            $result = mysqli_query($dbconnection, $sql1);
 
-    echo "<table border=\"1\" bordercolor=\"#0066FF\" style=\"background-color:#CCFFFF\" width=\"50%\" cellpadding=\"1\" cellspacing=\"0\">";
+    echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
     echo"<td>Fee ID</td>";
     echo"<td>User ID</td>";

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  session_start();
 ?>
 <?php 
@@ -20,6 +20,15 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <style>
 
 input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=date], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px auto;
@@ -78,57 +87,54 @@ include "../config/userheader.php";
    $db = "mydb";
    $dbconnection = new mysqli($host, $user, $pass,$db);
 
-$sql2 = "SELECT totaldebt FROM   totaldebtyear WHERE YEAR(submitdate) = YEAR(CURDATE())";
-                      $resultt = mysqli_query($dbconnection, $sql2);
-                      $roww = mysqli_fetch_assoc($resultt);
-                        $totaldebtt= $roww["totaldebt"]; 
-                        $monthlypayment=$totaldebtt/12;
+   $month = "";
+   $pay = "";
+   $formvalid = TRUE;
+
+    if(isset($_POST['month'])){
+    $month=  $_POST['month'];
+ } 
+     if(isset($_POST['pay'])){
+    $pay=  $_POST['pay'];
+ } 
 
  if(isset($_POST["submit"])){
 
-
-    $pay = mysqli_real_escape_string($dbconnection,$_POST["pay"]);
-    $username = mysqli_real_escape_string($dbconnection,$_POST["username"]);
-    $submitdate = mysqli_real_escape_string($dbconnection,$_POST["submitdate"]);
-
-
-    $sql = "SELECT * FROM feestransaction WHERE username = '$username' and YEAR(submitdate) = YEAR(CURDATE())";
+    $sql = "SELECT * FROM feestransaction WHERE userid = '$_SESSION[id]' AND MONTHNAME(submitdate) = '$month'  ";
     $result = mysqli_query($dbconnection, $sql);
-     $row = mysqli_fetch_assoc($result);
-    $totalfee = $row["totaldebt"];
-    $paidfee = 0;
-
-    if($pay != $monthlypayment || $username != $_SESSION['login_user'] || $totalfee == 0){
+                      $row = mysqli_fetch_assoc($result);
+    $monthlydebt = $row["monthlydue"];
+    if($monthlydebt <= 0){
     echo "<div class='container' style='width: 42%;'>
   <div class='alert alert-danger'>
-    <strong>Error Occured!</strong> You need to pay '$monthlypayment' tl and you have to type the your username or 
-    you have already paid all due.
+    <strong>Error Occured!</strong> You haven't any debt'
   </div>
 </div>";
-       
+$formvalid = FALSE;
+    } elseif($pay!=$monthlydebt){
+    echo "<div class='container' style='width: 42%;'>
+  <div class='alert alert-danger'>
+    <strong>Error Occured!</strong> You need to pay EXACTLY $monthlydebt tl,
+    not more or less than $monthlydebt tl
+  </div>
+</div>";
+$formvalid = FALSE;
     } else {
+     $monthlydebt -= $pay;
+    }
 
- 
-   
-    $paidfee = $totalfee - $pay; 
-
-    $sql1 = "update feestransaction set totaldebt = '$paidfee' where username = '$username' and  YEAR(submitdate) = YEAR(CURDATE())";
-$sql3 = "INSERT INTO userhistory ( username, paidfee, submitdate) VALUES ('$username', '$pay', '$submitdate')";
-
-    $dbconnection->query($sql1);
-    $dbconnection->query($sql3);
-               echo '<script language="javascript">';
-            echo 'alert("Your fee has been successfully paid")';
-             echo '</script>';
-        }
-    
+    if($formvalid){
+   $sql1 = "update feestransaction set monthlydue = '$monthlydebt', ispay='PAID' where userid = '$_SESSION[id]' AND MONTHNAME(submitdate) = '$month' ";
+//$sql3 = "INSERT INTO userhistory ( username, paidfee, submitdate) VALUES ('$username', '$pay', '$submitdate')";
+$dbconnection->query($sql1); 
+}
  }
  
 
  ?>
 
 
-   <center><br>   
+ <!--  <center><br>   
  <div class="container">
   <div class="alert alert-info alert-dismissible" style="width: 48%">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -136,20 +142,31 @@ $sql3 = "INSERT INTO userhistory ( username, paidfee, submitdate) VALUES ('$user
     <?php  echo $monthlypayment; ?>tl.
   </div>
 </div>
-</center>
+</center>-->
 
 <center>
 <div id="payment">
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-    <label for="username" style="color:white;">Username</label>
-    <input type="text"  id="username" name="username" placeholder="Username" value="<?php echo $_SESSION['login_user']; ?>" required>
 
     <label for="pay" style="color:white;"> Pay </label>
     <input type="text" id="pay" name="pay" placeholder="pay" required>
      <label for="submitdate" style="color:white;">Date</label>
 
-        <input type="date" name="submitdate" required>
-    <input type="submit" value="Pay" name="submit" >
+              <select name="month" id="month">
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+    </select>
+    <input type="submit" value="Pay" name="submit" onclick="return confirm('Are you sure you  to pay?')" >
         
   </form>
 </div>

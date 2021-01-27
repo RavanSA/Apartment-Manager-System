@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <?php 
@@ -21,10 +21,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 
 
 <style>
-
- #did {border: solid black;width: 70%;border-radius: 4px;
-		margin: 70px auto ; background: white;
-		padding:70px;} 
+ 
 .error {color: #FF0000;}
  #color45{
     background-color: #F5F5F5;
@@ -38,6 +35,17 @@ if(!isset($_SERVER['HTTP_REFERER'])){
   border-radius: 10px;
   box-sizing: border-box;
 }
+    input[type=date], select {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+ 
     input[type=password], select {
   width: 70%;
   padding: 12px 20px;
@@ -76,8 +84,10 @@ input[type=submit]:hover {
 #logg {
   border-radius: 5px;
   background-color: white;
-  padding: 20px;
-
+  padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+     width: 56%;
 }
 .blocktype-css {
 	font-size: 16px;
@@ -103,14 +113,7 @@ include "../config/header.php";
  <h2>Create the new resident</h2>
  </div>
 
-  <center><br>   
- <div class="container">
-  <div class="alert alert-info alert-dismissible" style="width: 65%">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Read before taking any action!</strong> This section is a form for creating a new resident.
-  </div>
-</div>
-</center>
+  
 
 
  <?php
@@ -291,18 +294,17 @@ function test_input($data) {
      <br>
   	&nbsp;	&nbsp;<input type="text" name="apartmentnumber" placeholder="Apartment Number" value="<?php if ( isset($apartmentnumber) ) echo $apartmentnumber; ?>" required>
        <span class="error"> * <br> <?php echo  $aptnumbErr;?></span> 
-     <br>	<br>
-  	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
+     <br>	
+   
+       
+
+         	&nbsp; <input type="date" name="movedin" value="Moved in Date" required><br>
+  
+      	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
   	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">Male
   	&nbsp;	&nbsp;<input type="radio" name="gender" <?php if (isset($gender) && $gender=="other") echo "checked";?> value="other">Other   
   	&nbsp;	&nbsp;<span class="error">* <?php echo  $genderErr;?></span>
   <br>
-   
-       &nbsp;	&nbsp;   <label for="movedin">Moved in</label>
-
-         &nbsp;	&nbsp; <input type="date" name="movedin" required><br>
-  
-    
    
   &nbsp;	&nbsp;<input type="submit" name="submit" value="Submit"><br>
 &nbsp;	<a href="HTMLPage2.php.php"> <input id="button" type="button" value="Go to Admin Dashboard" ></a>

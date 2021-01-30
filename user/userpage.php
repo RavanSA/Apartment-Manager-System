@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  session_start();
 
 if(!isset($_SERVER['HTTP_REFERER'])){
@@ -181,10 +181,10 @@ $dbconnection->query($sql6);
  <div class="col-md-3">
                         <div class="main-box mb-blue">
                         
-                            <a href="paymenthistory.php">
+                            <a href="searchdebt.php">
 
-                                <i class="fas fa-history fa-5x" style="color:white;"></i>
-                                <h5 style="color:white;">Payment History</h5>
+                                <i class="fas fa-info fa-5x" style="color:white;"></i>
+                                <h5 style="color:white;">Search Debt</h5>
                             </a>
                            
                         </div>

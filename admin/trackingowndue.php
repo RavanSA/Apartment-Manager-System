@@ -71,11 +71,14 @@ include "../config/header.php"
                       <?php
 
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'january' AND YEAR(submitdate) = YEAR(CURDATE()) ";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'january' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
            echo "";
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+     echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -83,15 +86,13 @@ include "../config/header.php"
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -124,10 +125,13 @@ $(document).ready(function(){
           <p>
                     <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'february' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'february' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -135,15 +139,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -176,10 +178,13 @@ $(document).ready(function(){
           <p>
                       <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'march' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'march' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -187,15 +192,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -228,10 +231,13 @@ $(document).ready(function(){
           <p>
                  <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE  monthlydue > 0 AND MONTHNAME(submitdate) = 'april' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'april' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -239,15 +245,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -280,10 +284,13 @@ $(document).ready(function(){
           <p>
                       <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE  monthlydue > 0 AND MONTHNAME(submitdate) = 'may' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'may' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -291,15 +298,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -333,10 +338,13 @@ $(document).ready(function(){
           <p>
                       <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE  monthlydue > 0 AND MONTHNAME(submitdate) = 'june' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'june' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -344,15 +352,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -386,10 +392,13 @@ $(document).ready(function(){
           <p>
                      <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'july' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'july' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -397,15 +406,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -439,10 +446,13 @@ $(document).ready(function(){
           <p>
                     <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE  monthlydue > 0 AND MONTHNAME(submitdate) = 'august' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'August' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -450,15 +460,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -492,10 +500,13 @@ $(document).ready(function(){
           <p>
                     <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'september' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'september' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -503,15 +514,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -545,10 +554,13 @@ $(document).ready(function(){
           <p>
                      <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'november' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'november' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -556,15 +568,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -598,10 +608,13 @@ $(document).ready(function(){
           <p>
                      <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE  monthlydue > 0 AND MONTHNAME(submitdate) = 'october' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'october' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -609,15 +622,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -651,10 +662,13 @@ $(document).ready(function(){
           <p>
                      <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'december' AND YEAR(submitdate) = YEAR(CURDATE()) ";
+           $sql1 = "SELECT username,monthlydue,ispay, submitdate , feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+           WHERE monthlydue > 0 AND MONTHNAME(submitdate) = 'december' AND YEAR(submitdate) = YEAR(CURDATE()) ";
            $result = mysqli_query($dbconnection, $sql1);
        echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
+    echo"<td>User Name</td>";
     echo"<td>Monthly Debt</td>";
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
@@ -662,15 +676,13 @@ $(document).ready(function(){
 
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
-          $monthlydue= $row["monthlydue"]; 
-          $submitdate = $row["submitdate"]; 
-          $ispay= $row["ispay"]; 
-          $feedescription= $row["feedescription"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<4; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 

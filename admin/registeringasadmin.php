@@ -230,7 +230,7 @@ if(isset($_POST['username'])){
       $formValid = false;
     }
   }
-      
+   $dbconnection = new mysqli($host, $user, $pass,$db); 
   if (empty($apartmentnumber)) {
     $aptnumbErr = "Apartment number is required";
   } else {
@@ -241,16 +241,20 @@ if(isset($_POST['username'])){
       $aptnumbErr = "Available Apartment between 0 and 50";
       $formValid = false;
     }
+  $sql10 = "SELECT * FROM user WHERE apartmentnumber='$apartmentnumber' ";
+ $resulty = mysqli_query($dbconnection, $sql10);
+if(mysqli_num_rows($resulty) > 0){
+    $aptnumbErr = "This apartment number already full";
+    $formValid = false;
+}
   }
  
   $hashpasswd=md5($password);
 
-$sql = "INSERT INTO user ( username, password, email, gender, phonenumber, blocktype, apartmentnumber, pic, dstart) VALUES ('$name', '$hashpasswd', '$email', '$gender', '$phonenumber',
-'$blocktype','$apartmentnumber','profile.jpg', '$startdate' )";
          if($formValid){
-
-           $dbconnection = new mysqli($host, $user, $pass,$db);
-           if(mysqli_query($dbconnection, $sql)){
+       $sql = "INSERT INTO user ( username, password, email, gender, phonenumber, blocktype, apartmentnumber, pic, dstart) VALUES ('$name', '$hashpasswd', '$email', '$gender', '$phonenumber',
+'$blocktype','$apartmentnumber','profile.jpg', '$startdate' )"; 
+         if(mysqli_query($dbconnection, $sql)){
            echo '<script language="javascript">';
             echo 'alert("User information added to the database successfully")';
              echo '</script>';
@@ -310,7 +314,7 @@ function test_input($data) {
 &nbsp;	<a href="HTMLPage2.php.php"> <input id="button" type="button" value="Go to Admin Dashboard" ></a>
 </form>
 
-
+<br><br>
 </div>
 </div>
 </center>

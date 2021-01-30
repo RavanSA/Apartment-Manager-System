@@ -30,7 +30,8 @@ include "../config/userheader.php";
  <center><h1><i class="fas fa-hotel" style="font-size:40px"> 
  Apartment Manager System</i></h1><br>
  <h2>Check how much you have debt</h2>
- </div></center>
+  <h3>For the year <?php echo date("Y"); ?> </h3>
+ </center>
 
 
 <?php
@@ -63,42 +64,34 @@ include "../config/userheader.php";
         <div class="modal-body">
           <p>
            <?php
-                                 $sql2 = "SELECT totaldebt FROM   totaldebtyear WHERE YEAR(submitdate) = YEAR(CURDATE())";
-                      $resultt = mysqli_query($dbconnection, $sql2);
-                      $roww = mysqli_fetch_assoc($resultt);
-                        $totaldebtt= $roww["totaldebt"]; 
-                        $monthlypayment=$totaldebtt/12;
+          
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$totaldebtt' and YEAR(submitdate) = YEAR(CURDATE());";
-           $result = $dbconnection->query($sql1);
-           $row = mysqli_fetch_array($result);
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'january' AND YEAR(submitdate) = YEAR(CURDATE())";
+           $result = mysqli_query($dbconnection, $sql1);
+
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
-          ?>
+
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -126,35 +119,29 @@ $(document).ready(function(){
         <div class="modal-body">
           <p>
           <?php
-                    $february=$totaldebtt -  $monthlypayment;
 
-                     $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >=  '$february' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'february' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
@@ -186,40 +173,33 @@ $(document).ready(function(){
         <div class="modal-body">
           <p>
            <?php
-                      $march = $totaldebtt -  2*$monthlypayment;
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$march' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'march' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
-          </p>
+    ?>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -245,40 +225,34 @@ $(document).ready(function(){
         </div>
         <div class="modal-body">
           <p>
-           <?php
-                      $april = $totaldebtt -  3*$monthlypayment;
+          <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$april'  and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'april' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -305,40 +279,34 @@ $(document).ready(function(){
         </div>
         <div class="modal-body">
           <p>
-           <?php
-                      $may = $totaldebtt -  4*$monthlypayment;
+          <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$may' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'may' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -367,39 +335,33 @@ $(document).ready(function(){
         <div class="modal-body">
           <p>
            <?php
-                      $june = $totaldebtt -  5*$monthlypayment;
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$june' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'june' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -418,49 +380,43 @@ $(document).ready(function(){
 </script>
 
 <br><br>
-  <button type="button" class="btn btn-info btn-lg" id="myBtn7" style="width: 50%;">Jule</button>
+  <button type="button" class="btn btn-info btn-lg" id="myBtn7" style="width: 50%;">July</button>
   <div class="modal fade" id="myModal7" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content" style="width: 700px;">
         <div class="modal-header">
-          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for Jule</h4>
+          <h4 class="modal-title" style="padding-right:200px">Check that you have debt for July</h4>
         </div>
         <div class="modal-body">
           <p>
-           <?php
-                      $jule = $totaldebtt -  6*$monthlypayment;
+          <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt  >= '$jule' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'july' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -488,40 +444,34 @@ $(document).ready(function(){
         </div>
         <div class="modal-body">
           <p>
-           <?php
-                      $august = $totaldebtt -  7*$monthlypayment;
+         <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$august' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'august' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -550,39 +500,33 @@ $(document).ready(function(){
         <div class="modal-body">
           <p>
            <?php
-                      $september = $totaldebtt -  8*$monthlypayment;
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$september' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'september' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -611,39 +555,33 @@ $(document).ready(function(){
         <div class="modal-body">
           <p>
            <?php
-                      $november = $totaldebtt -  9*$monthlypayment;
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$november' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'november' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -671,40 +609,34 @@ $(document).ready(function(){
         </div>
         <div class="modal-body">
           <p>
-           <?php
-                      $october = $totaldebtt -  10*$monthlypayment;
+          <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$october' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'october' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -732,40 +664,34 @@ $(document).ready(function(){
         </div>
         <div class="modal-body">
           <p>
-           <?php
-                      $december = $totaldebtt -  11*$monthlypayment;
+        <?php
 
-           $sql1 = "SELECT * FROM feestransaction WHERE username = '$_SESSION[login_user]' and totaldebt >= '$december' and YEAR(submitdate) = YEAR(CURDATE());";
+           $sql1 = "SELECT username,monthlydue,submitdate,ispay,feedescription
+           FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id
+           WHERE userid='$_SESSION[id]' AND monthlydue > 0 AND MONTHNAME(submitdate) = 'december' AND YEAR(submitdate) = YEAR(CURDATE())";
            $result = mysqli_query($dbconnection, $sql1);
 
     echo "<table border=\"3\" bordercolor=\"grey\" style=\"background-color:white\" width=\"20%\" cellpadding=\"6\" cellspacing=\"2\">";
     echo"<tr>";
-    echo"<td>Fee ID</td>";
-    echo"<td>User ID</td>";
-    echo"<td>Username</td>";
-    echo"<td>Email</td>";
-    echo"<td>Block Type</td>";
-    echo"<td>Phone Number</td>";
-    echo"<td>Apartment Number</td>";
-    echo"</tr>";
+echo"<td>User Name</td>";
+    echo"<td>Monthly Debt</td>";
+    echo"<td>Submit Date</td>";
+    echo"<td>Payment Status</td>";
+    echo"<td>Fee Description</td>";
 
-        while ($row = mysqli_fetch_array($result)) { 
-          $feeID= $row["feeid"]; 
-          $userID= $row["userid"]; 
-          $username= $row["username"]; 
-          $email = $row["email"]; 
-          $block= $row["blocktype"]; 
-          $phonenumber= $row["phonenumber"]; 
-          $apartmentnumber= $row["apartmentnumber"]; 
-          echo"<tr>"; 
-         for ($i=0; $i<7; $i++){
-            echo"<td> $row[$i]</td>";
-        }
-        echo"</tr>";
+    echo"</tr>";
+     while ($row = mysqli_fetch_array($result)) { 
+  echo "<tr>"; 
+         echo "<td>". $row['username']. "</td>";
+          echo "<td>". $row['monthlydue']. "</td>";
+         echo "<td>". $row['submitdate']. "</td>";
+          echo "<td>". $row['ispay']. "</td>";
+          echo "<td>". $row['feedescription']. "</td>"; 
+        echo "</tr>";
        }
     echo"</table>";
 
-          ?>
+    ?>
           </p>
         </div>
         <div class="modal-footer">
@@ -784,12 +710,13 @@ $(document).ready(function(){
 </script>
 </center>
 
-</div>
-
-
 <br><br>
+
+<div>
 <?php
 include "../config/userfooter.php";
 ?>
+</div>
+
 </body>
 </html>

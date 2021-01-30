@@ -145,7 +145,7 @@ $db = "mydb";
     
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(isset($_POST["submit"])){
- $sql = "SELECT id FROM user";
+ $sql = "SELECT id FROM user WHERE moveddate IS NULL";
  $result = mysqli_query($dbconnection, $sql);
 if(mysqli_num_rows($result) > 0){
 while ($row = mysqli_fetch_array($result)) {
@@ -154,6 +154,11 @@ while ($row = mysqli_fetch_array($result)) {
        $dbconnection->query($sql1);     
   }
 }
+    echo "<div class='container' style='width: 34%;'>
+  <div class='alert alert-success'>
+    Completed succesfully
+  </div>
+</div>";
 }
 }
 
@@ -180,7 +185,7 @@ while ($row = mysqli_fetch_array($result)) {
 
 
             <label for="submitdate"></label>
-             <input type="date" name="submitdate" > <br>
+             <input type="date" name="submitdate" required> <br>
 
   <input type="submit" onclick="return confirm('Are you sure you want to add a new payment?')" name="submit" value="Submit"><br>
 
@@ -190,8 +195,10 @@ while ($row = mysqli_fetch_array($result)) {
 </div>
 <br><br>
 
+<footer>
 <?php
 include "../config/footer.php";
 ?>
+</footer>
 </body>
 </html>

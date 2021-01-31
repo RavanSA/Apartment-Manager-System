@@ -1,114 +1,241 @@
-﻿<?php
- session_start();
-?>
-<?php 
-if(!isset($_SERVER['HTTP_REFERER'])){
-    header('location:  ../error.php');
-    exit;
-}
-?>
-<!DOCTYPE html>
 <html>
-<head>
-<title></title>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
-  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<style>
-
-
-.main-box {
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    margin-bottom: 30px;
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Admin Panel</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+        table { border-collapse: collapse; font-size: 24px;}
+tr { border: none;
+font-size: 24px;
+}
+td {
+font-size: 24px;
+  border-right: solid 1px #555; 
+  border-left: solid 1px #555;
 }
 
-</style>
-</head>
-<body style="background-color: #F5F5F5;">
+#search {
+  border-radius: 10px;
+  background-color: white;
+  padding: 40px;
+  width : 94%;
+  height: 19%;
+  margin: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size:15px;
+}
+#document {
+    list-style: none;
+    width: 100%;
+    height: 90px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+input[type=text], select {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=date], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#submit {
+  width: 100%;
+  background-color: #555;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-<?php
+#submit:hover {
+  background-color: #45a049;
+}
+		</style>
+	</head>
+	<body>
+    	<div style="font-size: 16px;">
+	<?php
+session_start();
 include "../config/userheader.php";
 ?>
+</div>
  <center><h1><i class="fas fa-hotel" style="font-size:40px"> 
  Apartment Manager System</i></h1><br>
- <h2>How much spent on what</h2>
+ <h1> Expense List</h1>
  </div></center>
+	<br>
 
-<center>
-<div style="width: 70%;">
-<?php
-                      
-                        $host = "localhost";
-                        $user = "root";
-                        $pass = "";
-                        $db = "mydb";
-                        $dbconnection = new mysqli($host, $user, $pass,$db);
+<div id="search">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 
-                        $sql2 = "SELECT MAX(totaldebt) as totaldebt FROM   totaldebtyear WHERE YEAR(submitdate) = YEAR(CURDATE())";
-                      $resultt = mysqli_query($dbconnection, $sql2);
-                      $roww = mysqli_fetch_assoc($resultt);
-                        $totaldebtt= $roww["totaldebt"]; 
-                        $totaldebtt*=12;
-                        echo "  <center><br>   
- <div class='container'>
-  <div class='alert alert-info alert-dismissible' style='width: 50%'>
-    <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-    Annual apartment income is $totaldebtt TL
+<div class="container">
+     <div class="row" >
+	 <div class="col-md-4">
+<select name="month" id="month"   style="width:250px;" required>
+              <option value="" disabled selected hidden>Choose the month you want to pay</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+    </select>
+	</div>
+
+		 <div class="col-md-4">
+    <input type="number" min="2010" max="2100" step="1" value="2021"  name="year" style="width:250px;" required>
+		</div>
+
+	
+			 <div class="col-md-4">
+    <button type="submit" id="submit" name="search" > <i class="fas fa-search"></i> Search</button>
+	</div>
+  </form>
   </div>
-</div>
-</center>";
+  </div>
+  </div>
 
-                    $sql = "SELECT * FROM expensedetails";
 
+
+	<?php
+	$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "mydb";
+
+  $dbconnection = new mysqli($host, $user, $pass,$db);
+
+	$month =  "";
+	$submitdate = "";
+    $year = "";
+    $expectedincome ="";
+    $netincome ="";
+    $color ="";
+    $icon="";
+	if(isset($_POST['month'])){
+    $month = $_POST['month'];
+ } 
+ if(isset($_POST['year'])){
+  $year =  $_POST['year'];
+ } 
+ if(isset($_POST['submitdate'])){
+    $submitdate = $_POST['submitdate'];
+ } 
+
+ 
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   if(isset($_POST["search"])){
+   $sql5="SELECT (SUM(monthlydue)+SUM(paidamount)) as totalincome
+   FROM feestransaction 
+   WHERE YEAR(submitdate) = '$year' and MONTHNAME(submitdate)='$month'";
+    $resultt  = mysqli_query($dbconnection, $sql5);
+     $roww = mysqli_fetch_assoc($resultt);
+     $expectedincome=$roww["totalincome"];
+      $sql6="SELECT SUM(paidamount) as netincome 
+   FROM feestransaction 
+   WHERE YEAR(submitdate) = '$year' and MONTHNAME(submitdate)='$month'";
+    $resulttt  = mysqli_query($dbconnection, $sql6);
+     $rowww = mysqli_fetch_assoc($resulttt);
+     $netincome=$rowww["netincome"];
+     $sql7="SELECT (SUM(amount)) as outcome 
+     FROM expensedetails 
+     WHERE YEAR(expensesdate) = '$year' and MONTHNAME(expensesdate)='$month'";
+    $res  = mysqli_query($dbconnection, $sql7);
+         $rov = mysqli_fetch_assoc($res);
+     $outcome=$rov["outcome"];
+  if($outcome>=$expectedincome){
+         $color="red";
+                 $icon="<i class='fas fa-times'></i>";
+
+  }else if($outcome<=$expectedincome){
+        $color="green";
+        $icon="<i class='far fa-check-circle'></i>";
+  }
+
+$sql = "SELECT * FROM expensedetails WHERE  MONTHNAME(expensesdate) = '$month' AND YEAR(expensesdate)='$year' ORDER BY amount DESC ";
                     if($result = mysqli_query($dbconnection, $sql)){
                         if(mysqli_num_rows($result) > 0){
-                            echo "<table class='table table-bordered table-striped' style='width:60%'>";
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th>Expenseid</th>";
-                                        echo "<th>Expense Amount</th>";
-                                        echo "<th>Details</th>";
-                                        echo "<th>Expense Date</th>";
-
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
+                        echo "<div style='font-size: 26px';>";
+                              echo "<span style='padding-left:50px'>Year: $year </span> 
+                              <span style='padding-left:250px'>Month: $month  </span><br><hr>";
+                              echo "<span style='padding-left:50px'>Expected Income:$expectedincome </span>
+                              <span style='padding-left:100px'>Net Income:$netincome </span>
+                              <span style='padding-left:100px;color:$color;'>Outcome:$outcome $icon </span><br><hr>";
+                              echo "<table>";
+                              echo "<tr>";
+                              echo "<td><span style='padding-left:200px'><strong>Expense Details</strong></span></td>";
+                              echo "<td><span style='padding-left:100px'><strong>Amount</strong></span></td>";
+                              echo "<td><span style='padding-left:100px'><strong>Added By</strong></span></td>";
+                              echo "<td><span style='padding-left:100px'><strong>Expense Date</strong></span></td>";
+                              echo "</tr>";
+                                echo "</div><br>";
                                 while($row = mysqli_fetch_array($result)){
-                                    echo "<tr>";
-                                        echo "<td>" . $row['expenseid'] . "</td>";
-                                        echo "<td>" . $row['expenseamount'] . "</td>";
-                                        echo "<td>" . $row['details'] . "</td>";
-                                        echo "<td>" . $row['date'] . "</td>";
-
-                                    echo "</tr>";
+                                echo "<tr>";
+                                         echo "<td><span style='padding-left:200px'>$row[details]</span></td>";
+                             echo "<td><span style='padding-left:100px'>$row[amount]</span></td>";
+                          echo "<td><span style='padding-left:100px'>$row[addedby]</span></td>";
+                          echo "<td><span style='padding-left:100px'>$row[expensesdate]</span></td>";
+                                        echo "</tr>";
                                 }
-                                echo "</tbody>";                            
-                            echo "</table>";
-                            mysqli_free_result($result);
+                                echo "</table>";
                         } else{
-                            echo "<p><em>No records were found.</em></p>";
+                            echo "<p style='font-size:large;'><em><center>No records were found.</center></em></p>";
                         }
                     } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        echo "ERROR: Could not able to execute ";
                     }
-                    mysqli_close($dbconnection);
-                    ?>
-                    </div>
-                    </center>
+                   
 
+  }
+  }
+
+
+?><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="footer">
+    <footer>
 <?php
 include "../config/userfooter.php";
 ?>
-    </body>
-    
+</footer>
+</div>
+
+	</body>
 </html>
+
+
+
+
+

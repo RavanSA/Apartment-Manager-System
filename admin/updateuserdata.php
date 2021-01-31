@@ -1,4 +1,4 @@
-﻿
+
 <?php
 
 
@@ -152,13 +152,13 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                             <span class="help-block"><?php echo  $aptnErr;?></span>
                         </div>
                          <div class="form-group <?php echo (!empty( $ifmovErr)) ? 'has-error' : ''; ?>">
-                            <label>Living İnformation</label>
+                            <label>Living Information</label>
                             <input type="text" name="ifmoved" class="form-control" value="<?php echo $ifmoved; ?>">
                             <span class="help-block"><?php echo  $ifmovErr;?></span>
                         </div>
                         <div class="form-group <?php echo (!empty( $movdatErr)) ? 'has-error' : ''; ?>">
                             <label> Moving Date</label>
-                            <input type="date" name="moveddate" class="form-control" value="<?php echo $moveddate; ?>">
+                            <input type="date" name="moveddate" class="form-control" value="<?php echo $moveddate; ?>" required>
                             <span class="help-block"><?php echo  $movdatErr;?></span>
                         </div>
                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>

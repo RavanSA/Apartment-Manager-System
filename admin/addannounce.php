@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  session_start();
 ?>
 
@@ -13,9 +13,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-
 input[type=text], select {
-  width: 100%;
+  width: 60%;
   padding: 12px 20px;
   margin: 8px auto;
   display: inline-block;
@@ -25,7 +24,7 @@ input[type=text], select {
 }
 
 input[type=submit] {
-  width: 30%;
+  width: 60%;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -41,12 +40,13 @@ input[type=submit]:hover {
 
 #payment {
   border-radius: 40px;
-  border-style: inset;
   background-color: #f2f2f2;
   padding: 20px;
-  width : 40%;
+  width : 50%;
   height: 70%;
   margin: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 } 
 </style>
 </head>
@@ -64,19 +64,39 @@ input[type=submit]:hover {
  </div></center>
  <br>
 
-<center>
+ <center>
 <div id="payment">
+
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-    <label for="message"><strong>Write a message</strong></label><br>
-    <textarea name="message" style="width: 70%; height:100%"></textarea><br>
-    <input type="submit" value="Submit" name="submit">   
+    <label for="message"><strong>Write a message to the resident</strong></label><br>
+    <textarea name="message" style="width: 60%; height:100%"></textarea><br>
+<label for="chkYes">
+    <input type="radio" id="private" name="radio" value="private" onclick="ShowHideDiv()" />
+    Private
+</label>
+<label for="chkNo">
+    <input type="radio" id="everyone" name="radio" value="everyone" onclick="ShowHideDiv()" />
+    Everyone
+</label>
+<div id="dvtext" style="display: none">
+    <input type="text" id="txtBox" name="username" placeholder="Write Username"/>
+</div><br>
+     <input type="submit" value="Submit" name="submit">  
+
   </form>
 </div>
+<script>
+function ShowHideDiv() {
+        var chkYes = document.getElementById("private");
+        var dvtext = document.getElementById("dvtext");
+        dvtext.style.display = chkYes.checked ? "block" : "none";
+    }
+</script>
 </center>
 
 
  <?php
-
+ error_reporting(0);
    $host = "localhost";
    $user = "root";
    $pass = "";
@@ -86,15 +106,27 @@ input[type=submit]:hover {
 
  if(isset($_POST['submit'])){
     $message = mysqli_real_escape_string($dbconnection,$_POST['message']);
-    $sql2 = "INSERT INTO announcement (message) VALUES ('$message')";
+    $username = mysqli_real_escape_string($dbconnection,$_POST['username']);
+    $radio = mysqli_real_escape_string($dbconnection,$_POST['radio']);
+    if($radio=="private"){
+    $sql2 = "INSERT INTO announcement (username, message,sentto) VALUES ('$username','$message','$radio')";
     $dbconnection->query($sql2);
      echo '<script language="javascript">';
      echo 'alert("Message sent successfully")';
      echo '</script>';
+     } else if($radio=="everyone"){
+     $sql3 = "INSERT INTO announcement (username, message,sentto) VALUES ('NULL','$message','$radio')";
+    $dbconnection->query($sql3);
+     echo '<script language="javascript">';
+     echo 'alert("Message sent successfully")';
+     echo '</script>';
+     }
+
     } 
+
  ?>
 
-<div style= "margin-top: 104px;">
+<div style= "margin-top: 30px;"><br><br>
 <?php
  include "../config/footer.php";
 ?>

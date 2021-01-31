@@ -189,7 +189,7 @@ $(document).ready(function(){
     echo"<td>Submit Date</td>";
     echo"<td>Payment Status</td>";
     echo"<td>Fee Description</td>";
-
+    
     echo"</tr>";
      while ($row = mysqli_fetch_array($result)) { 
   echo "<tr>"; 

@@ -195,10 +195,10 @@ while ($row = mysqli_fetch_array($result)) {
 </div>
 <br><br>
 
-<footer>
+
 <?php
 include "../config/footer.php";
 ?>
-</footer>
+
 </body>
 </html>

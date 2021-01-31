@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  session_start();
 ?>
 <?php 
@@ -52,11 +52,20 @@ input[type=submit]:hover {
   width : 40%;
   height: 40%;
   margin: 30px;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+ input[type=date], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 </style>
 </head>
 <body style="background-color:#F5F5F5">
-
 <?php
  include "../config/header.php";
 ?>
@@ -65,21 +74,8 @@ input[type=submit]:hover {
 
  <center><h1><i class="fas fa-hotel" style="font-size:40px"> 
  Apartment Manager System</i></h1><br>
- <h2>Add Expense Details</h2>
+ <h2>Add Expense and Expense Details</h2>
  </div></center>
-
-
-<center>
-<div id="payment">
-<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-    <label for="expense">Expense</label>
-    <input type="text" id="expense" name="expense" placeholder="Add expense" required>
-    <label for="details">Details</label>
-    <input type="text" id="details" name="details" placeholder="Expense Details" required>
-    <input type="submit" value="Submit" name="submit">   
-  </form>
-</div>
-</center>
 
  <?php
 
@@ -89,20 +85,41 @@ input[type=submit]:hover {
    $db = "mydb";
    $dbconnection = new mysqli($host, $user, $pass,$db);
 
-
  if(isset($_POST['submit'])){
     $expense = mysqli_real_escape_string($dbconnection,$_POST['expense']);
     $detail = mysqli_real_escape_string($dbconnection,$_POST['details']);
-    $sql2 = "INSERT INTO expensedetails (details, expenseamount)
-    VALUES ('$detail','$expense')";
+    $date = mysqli_real_escape_string($dbconnection,$_POST['submitdate']);
+
+    $sql2 = "INSERT INTO expensedetails (details, amount, addedby,expensesdate)
+    VALUES ('$detail','$expense','$_SESSION[login_user]','$date')";
+        echo "<div class='container' style='width: 42%;'>
+  <div class='alert alert-success'>
+Expense details added successfully
+  </div>
+</div>";
     $dbconnection->query($sql2);
-     echo '<script language="javascript">';
-     echo 'alert("Expense details added to the database successfully")';
-     echo '</script>';
-    } 
+
+}
+    
  ?>
+ 
+
+
+<center>
+<div id="payment">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+    <input type="text" id="expense" name="expense" placeholder="Amount" required>
+    <input type="text" id="details" name="details" placeholder="Details" required>
+             <input type="date" name="submitdate" value="Date" required> <br>
+    <input type="submit" value="Submit" name="submit"  onclick="return confirm('Are you sure to continue?')"
+>  
+  </form>
+</div>
+</center>
+ <footer>
 <?php
  include "../config/footer.php";
 ?>
+</footer>
 </body>
 </html>

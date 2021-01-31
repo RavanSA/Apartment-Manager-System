@@ -1,12 +1,7 @@
-﻿<?php
+<?php
  session_start();
 ?>
-<?php 
-if(!isset($_SERVER['HTTP_REFERER'])){
-    header('location:  ../error.php');
-    exit;
-}
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +12,14 @@ if(!isset($_SERVER['HTTP_REFERER'])){
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 <style>
+.ui-datepicker-calendar {
+   display: none;
+}
+
 
 input[type=text], select {
   width: 100%;
@@ -28,7 +30,24 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
+input[type=date], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 input[type=submit] {
   width: 100%;
   background-color: #4CAF50;
@@ -46,26 +65,25 @@ input[type=submit]:hover {
 
 #payment {
   border-radius: 10px;
-  background-color: grey;
+  background-color: white;
   padding: 20px;
   width : 40%;
   height: 40%;
   margin: 30px;
-}
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+}
 </style>
 </head>
 <body style="background-color:#F5F5F5">
-
-
 <?php
- include "../config/header.php";
+include "../config/header.php";
 ?>
 <br><br>
 
  <center><h1><i class="fas fa-hotel" style="font-size:40px"> 
  Apartment Manager System</i></h1><br>
- <h2>Pay residents dues</h2>
+ <h2>Pay your due</h2>
  </div></center>
 
 
@@ -73,92 +91,152 @@ input[type=submit]:hover {
 
 
  <?php
- 
-
+ error_reporting(0);
    $host = "localhost";
    $user = "root";
    $pass = "";
    $db = "mydb";
    $dbconnection = new mysqli($host, $user, $pass,$db);
 
-$sql2 = "SELECT totaldebt FROM   totaldebtyear WHERE YEAR(submitdate) = YEAR(CURDATE())";
-                      $resultt = mysqli_query($dbconnection, $sql2);
-                      $roww = mysqli_fetch_assoc($resultt);
-                        $totaldebtt= $roww["totaldebt"]; 
-                        $monthlypayment=$totaldebtt/12;
+   $month = "";
+   $pay = "";
+   $years = "";
+   $formvalid = TRUE;
+   $username ="";
+
+    if(isset($_POST['month'])){
+    $month=  $_POST['month'];
+ } 
+     if(isset($_POST['pay'])){
+    $pay=  $_POST['pay'];
+ } 
+      if(isset($_POST['years'])){
+    $years=  $_POST['years'];
+ } 
+       if(isset($_POST['username'])){
+    $username =  $_POST['username'];
+ } 
 
  if(isset($_POST["submit"])){
 
-
-    $pay = mysqli_real_escape_string($dbconnection,$_POST["pay"]);
-    $username = mysqli_real_escape_string($dbconnection,$_POST["username"]);
-    $submitdate = mysqli_real_escape_string($dbconnection,$_POST["submitdate"]);
-
-
-    $sql = "SELECT * FROM feestransaction WHERE username = '$username'";
+    $sql = "SELECT user.username, feestransaction.submitdate, feestransaction.monthlydue,feestransaction.ispay, feestransaction.paiddate, feestransaction.feedescription,feestransaction.userid
+FROM feestransaction LEFT JOIN user ON feestransaction.userid= user.id 
+WHERE username = '$username' AND MONTHNAME(submitdate) = '$month' AND YEAR(submitdate)='$years' ";
     $result = mysqli_query($dbconnection, $sql);
-     $row = mysqli_fetch_assoc($result);
-    $totalfee = $row["totaldebt"];
-  $paidfee = 0;
-       if($pay != $monthlypayment || $totalfee == 0){
+                      $row = mysqli_fetch_assoc($result);
+                      $monthlydebt = $row["monthlydue"]; 
+    $monthlydebt = $row["monthlydue"];      
+        $paidamount = $row["monthlydue"];
+
+    $userid = $row["userid"];                
+    if($monthlydebt <= 0){
     echo "<div class='container' style='width: 42%;'>
   <div class='alert alert-danger'>
-    <strong>Error Occured!</strong> You need to pay '$monthlypayment' tl or 
-    you have already paid all due.
+    <strong>Error Occured!</strong> You haven't any debt for $month,$years
   </div>
 </div>";
-       
-    } else {
+$formvalid = FALSE;
+    } elseif($pay!=$monthlydebt){
+    echo "<div class='container' style='width: 42%;'>
+  <div class='alert alert-danger'>
+    <strong>Error Occured!</strong> You need to pay EXACTLY $monthlydebt tl,
+    not more or less than $monthlydebt tl
+  </div>
+</div>";
+$formvalid = FALSE;
+    } elseif(mysqli_num_rows($resultt) <= 0){
+    echo "<div class='container' style='width: 42%;'>
+  <div class='alert alert-danger'>
+    <strong>Error Occured!</strong> There are no user that name
+  </div>
+</div>";
+$formvalid = FALSE;
+    }
+    else {
+     $monthlydebt -= $pay;
+    echo "<div class='container' style='width: 42%;'>
+  <div class='alert alert-success'>
+    Payment completed  successfully for $month 
+  </div>
+</div>";
 
- 
-   
-    $paidfee = $totalfee - $pay; 
+    }
 
-    $sql1 = "update feestransaction set totaldebt = '$paidfee' where username = '$username' and  YEAR(submitdate) = YEAR(CURDATE())";
-$sql3 = "INSERT INTO userhistory ( username, paidfee, submitdate) VALUES ('$username', '$pay', '$submitdate')";
+    if($formvalid){
+  
+    $sql1 = "update feestransaction set monthlydue = '$monthlydebt', ispay='PAID', paiddate=NOW(),paidamount='$paidamount' where userid = '$userid' AND MONTHNAME(submitdate) = '$month' AND YEAR(submitdate)='$years'";
 
-    $dbconnection->query($sql1);
-    $dbconnection->query($sql3);
-               echo '<script language="javascript">';
-            echo 'alert("Your fee has been successfully paid")';
-             echo '</script>';
-        }
-    
+$dbconnection->query($sql1); 
+}
  }
  
 
  ?>
 
 
-   <center><br>   
+ <!--  <center><br>   
  <div class="container">
   <div class="alert alert-info alert-dismissible" style="width: 48%">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Read before taking any action!</strong> The monthly fee for 1 month is <?php  echo $monthlypayment;?> TL. You cannot pay more than 
-    <?php  echo $monthlypayment; ?>tl once a time.
+    <?php  echo $monthlypayment; ?>tl.
   </div>
 </div>
-</center>
-
+</center>-->
+<script>
+$(function() {
+    $( "#datepicker" ).datepicker({dateFormat: 'yy'});
+});​
+</script>
 <center>
 <div id="payment">
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-    <label for="username" style="color:white;">Username</label>
-    <input type="text"  id="username" name="username" placeholder="Username" required>
 
+  <div class="row" >
+  <div class="col-md-6">
     <label for="pay" style="color:white;"> Pay </label>
-    <input type="text" id="pay" name="pay" placeholder="pay" required>
+    <input type="text" id="pay" name="pay"  style="width: 250px;" placeholder="Amount" required>
+    </div>
+    <div class="col-md-6">
+    <label for="pay" style="color:white;"> Pay </label>
+    <input type="text" id="pay" name="username" placeholder="Username" style="width:250px;" required>
+    </div>
+    </div>
      <label for="submitdate" style="color:white;">Date</label>
-
-        <input type="date" name="submitdate" required>
-    <input type="submit" value="Submit" name="submit" >
+     <div class="row" >
+     <div class="col-md-6">
+     <div  style="display:inline-block">
+              <select name="month" id="month"   style="width:250px;" required>
+              <option value="" disabled selected hidden>Choose the month you want to pay</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+    </select>
+    </div>
+    </div>
+    <div class="col-md-6">
+   <div style=" ">
+    <input type="number" min="2010" max="2100" step="1" value="2021"  name="years" style="width:250px;" required>
+    </div>
+    </div>
+    </div>
+    <input type="submit" value="Pay" name="submit" onclick="return confirm('Before continue, please check again which month you would like to pay')" >
         
   </form>
 </div>
 </center>
-
+<br><br>
 <?php
- include "../config/footer.php";
+include "../config/footer.php";
 ?>
 
 </body>

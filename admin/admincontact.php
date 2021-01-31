@@ -1,4 +1,4 @@
-﻿
+
 <?php
  session_start();
 
@@ -73,6 +73,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                                         echo "<th>Last Name</th>";
                                         echo "<th>Phonenumber</th>";
                                         echo "<th>Message</th>";
+                                        echo "<th>Seen By</th>";
 
                                     echo "</tr>";
                                 echo "</thead>";
@@ -83,6 +84,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                                         echo "<td>" . $row['lastname'] . "</td>";
                                         echo "<td>" . $row['phonenumber'] . "</td>";
                                         echo "<td>" . $row['subject'] . "</td>";
+                                        echo "<td>" . $row['seenby'] . "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
@@ -94,9 +96,10 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                     } else{
                         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                     }
- 
-                    // Close connection
-                    mysqli_close($dbconnection);
+                    $sql5="UPDATE contactus SET seenby='$_SESSION[login_user]'";
+                    $dbconnection->query($sql5); 
+
+                     mysqli_close($dbconnection);
                     ?>
                 </div>
             </div>        
